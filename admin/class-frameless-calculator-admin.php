@@ -23,6 +23,7 @@
 class Frameless_Calculator_Admin {
 
 	/**
+	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
