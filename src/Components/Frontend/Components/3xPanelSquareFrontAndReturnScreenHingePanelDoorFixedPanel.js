@@ -111,6 +111,13 @@ export default class _3xPanelSquareFrontAndReturnScreenHingePanelDoorFixedPanel 
 
       if ( response.success ) {
 
+        Swal.fire({
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+          title: '3 x Panel Inline Screen – Hinge Panel + Door + Fixed Panel has been added to your cart'
+        })
+
         this.setState( { bracket: true } );
 
       }
@@ -403,6 +410,8 @@ class Bracket extends Component {
 
       hinge: false,
 
+      bracket: [],
+
       selectedHinge: 0,
       selectedDoorKnob: 0,
 
@@ -524,6 +533,13 @@ class Bracket extends Component {
         .then( response => {
   
           if (response.success) {
+
+            Swal.fire({
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1500,
+              title: `${waterbar[0].category}(${waterbar[0].title}) added to the cart`
+            })
   
             this.setState( { extras: true } );
 
@@ -598,6 +614,13 @@ class Bracket extends Component {
                   .then( response => {
             
                     if (response.success) {
+
+                      Swal.fire({
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        title: `${hinge[0].category}(${hinge[0].title}) & ${doorKnob[0].category}(${doorKnob[0].title}) added to the cart`
+                      })
             
                       this.setState( { doorKnobAdded: true } );
 
@@ -717,16 +740,13 @@ class Bracket extends Component {
             hideClass: {
               popup: 'animate__animated animate__fadeOutUp'
             },
-            showCancelButton: true,
+            showConfirmButton: false,
+            showCancelButton: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Proceed to Checkout',
             cancelButtonText: 'Continue Shopping',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location = '/checkout'
-            }
-
+            timer: 1500
           })
 
           const node = document.getElementById("modal-body");
@@ -778,6 +798,13 @@ class Bracket extends Component {
 
             if ( response.success )  {
 
+              Swal.fire({
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                title: `${this.state.bracket.category}(${this.state.bracket.title}) added to the cart`
+              })
+
               this.setState( { hinge: true } );
 
               const node = document.getElementById("modal-body");
@@ -813,7 +840,7 @@ class Bracket extends Component {
 
     const _180_degree_bracket = bracket.id
 
-    this.setState( { _180_degree_price, selected, _180_degree_bracket  } );
+    this.setState( { _180_degree_price, selected, _180_degree_bracket, bracket  } );
 
   }
 
@@ -827,7 +854,7 @@ class Bracket extends Component {
 
     const selected = bracket.id
 
-    this.setState( { _90_degree_price, selected, _90_degree_bracket  } );
+    this.setState( { _90_degree_price, selected, _90_degree_bracket, bracket  } );
 
   }
 
@@ -851,7 +878,7 @@ class Bracket extends Component {
 
     const _90_degree_hinge = this.props.panels.filter( p => p.category == '90 Degree Wall To Glass Hinge');
 
-    const _180_degree_hinge = this.props.panels.filter( p => p.category == '180 Degree Wall To Glass Hinge');
+    const _180_degree_hinge = this.props.panels.filter( p => p.category == '180 Degree Glass To Glass Hinge');
 
     const doorKnob = this.props.panels.filter( p => p.category === 'Door Knob');
 
@@ -881,23 +908,23 @@ class Bracket extends Component {
 
     }
 
-    const waterbars = this.props.panels.filter( p => p.category == 'Half Round Water Bar');
+    const waterbars = this.props.panels.filter( p => p.category == 'Half-Round Waterbar');
 
     let waterbar_price = waterbars.length > 0 ? waterbars[0].price : 0;
 
     return (
 
-      <Modal isOpen={ this.props.open } toggle={ this.props.close } className="mw-100 w-50 mt-4">
+      <Modal isOpen={ this.props.open } toggle={ this.props.close } className="mw-100 mt-4">
 
         <div className="modal-header text-center">
 
-            <div style={ { fontSize: '20px'} }>
+            {/* <div style={ { fontSize: '20px'} }>
 
               <FontAwesomeIcon className="text-success mr-4" icon={faCheckCircle} />
 
               "3 x Panel Inline Screen – Hinge Panel + Door + Fixed Panel" has been added to your cart
 
-            </div>
+    </div> */}
 
             <div className="ml-1">
 
@@ -943,7 +970,7 @@ class Bracket extends Component {
 
                   const variants = x.variants.split(',');
 
-                  if ( x.category == 'Spatula' ) {
+                  if ( x.category == 'SILICON SPATULA' ) {
 
                     img = '/wp-content/uploads/2021/09/SPATULA.jpg'
 
@@ -963,9 +990,17 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2021/09/SPADE_PORCELAIN_EATER.jpeg';
 
-                  } else if ( x.category == 'Glass Shelf Bracket' ) {
+                  } else if ( x.category == 'Shelf Bracket / Floor Bracket' ) {
 
                     img = '/wp-content/uploads/2021/09/SHELF-BRACKET.jpeg';
+
+                  } else if ( x.category == 'Silicone Tube' ) {
+
+                    img = '/wp-content/uploads/2023/06/Silicon-Clear_Silicon.png';
+
+                  } else if ( x.category == '3MM PACKERS' ) {
+
+                    img = '/wp-content/uploads/2023/06/3mm-PACKERS-SETTING-BLOCKS.jpg';
 
                   }
 
@@ -1235,6 +1270,19 @@ class Bracket extends Component {
             </Fragment>
           }
         </div>
+
+        { this.state.extras ? 
+
+        <div className="modal-footer" style={{ justifyContent: 'end', padding: '15px'}}>
+
+          
+                <Button className="text-nowrap" onClick={ () => { location = '/checkout' } } color="dark">Proceed To Checkout</Button>
+
+          
+
+        </div>
+
+        : '' }
       </Modal>
 
     )

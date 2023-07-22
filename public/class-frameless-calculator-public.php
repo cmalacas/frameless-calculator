@@ -143,11 +143,12 @@ class Frameless_Calculator_Public {
 
 		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Fixed Panel'");
 
-		$data['brackets_90'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%90 degree bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Bruched Nickel', 'Black', 'Polished Gold', 'Brushed Gold', 'Brushed Brass')");
+		$data['brackets_90'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%90 Degree Wall Bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Bruched Nickel', 'Black', 'Polished Gold', 'Brushed Gold', 'Brushed Brass')");
 
-		$data['brackets_180'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%180 degree bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Brushed Nickel', 'Black', 'Satin Chrome' )");
+		$data['brackets_180'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%180 Degree Wall Bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Brushed Nickel', 'Black', 'Satin Chrome' )");
 
-		$data['extras'] = $wpdb->get_results("SELECT ".$wpdb->prefix."frameless_products.*, (SELECT GROUP_CONCAT(CONCAT(title,':',price, ':', LOWER(REPLACE(title, ' ', '-')), ':', code ) SEPARATOR ',') FROM ".$wpdb->prefix."frameless_products p2 WHERE p2.category = ".$wpdb->prefix."frameless_products.category ) as variants FROM " . $wpdb->prefix . "frameless_products WHERE category in ('Glass Shelf', 'Spatula', 'Silicone', 'Spade Porcelain Eater Drill Bit', 'Door Seal', 'Glass Shelf Bracket') GROUP BY category");
+		$data['extras'] = $wpdb->get_results("SELECT ".$wpdb->prefix."frameless_products.*, (SELECT GROUP_CONCAT(CONCAT(title,':',price, ':', LOWER(REPLACE(title, ' ', '-')), ':', code ) SEPARATOR ',') FROM ".$wpdb->prefix."frameless_products p2 WHERE p2.category = ".$wpdb->prefix."frameless_products.category ) as variants FROM " . $wpdb->prefix . "frameless_products WHERE category in ('Glass Shelf', 'SILICON SPATULA', 'Silicone Tube', 'Spade Porcelain Eater Drill Bit', 'Door Seal', 'Shelf Bracket / Floor Bracket', '3MM PACKERS') GROUP BY category");
+
 
 		
 
@@ -673,13 +674,13 @@ class Frameless_Calculator_Public {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category IN ('Fixed Panel', 'Hinge Panel', 'Door Panel', '180 Degree Wall To Glass Hinge', '90 Degree Wall To Glass Hinge', 'Door Knob', 'Half Round Water Bar')");
+		$data['panels'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category IN ('Fixed Panel', 'Hinge Panel', 'Hinged Panel', 'Door Panel', '180 Degree Glass To Glass Hinge', '90 Degree Wall To Glass Hinge', 'Door Knob', 'Half-Round Waterbar')");
 
-		$data['brackets_90'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%90 degree bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Bruched Nickel', 'Black', 'Polished Gold', 'Brushed Gold', 'Brushed Brass')");
+		$data['brackets_90'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%90 Degree Wall Bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Bruched Nickel', 'Black', 'Polished Gold', 'Brushed Gold', 'Brushed Brass')");
 
-		$data['brackets_180'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%180 degree bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Brushed Nickel', 'Black', 'Satin Chrome' )");
+		$data['brackets_180'] = $wpdb->get_results("SELECT  *, LOWER(REPLACE(title, ' ', '-')) as slug FROM " . $wpdb->prefix . "frameless_products WHERE category LIKE '%180 Degree Wall Bracket%' GROUP BY code ORDER BY FIELD(title, 'Polished Chrome', 'Brushed Nickel', 'Black', 'Satin Chrome' )");
 
-		$data['extras'] = $wpdb->get_results("SELECT ".$wpdb->prefix."frameless_products.*, (SELECT GROUP_CONCAT(CONCAT(title,':',price, ':', LOWER(REPLACE(title, ' ', '-')), ':', code ) SEPARATOR ',') FROM ".$wpdb->prefix."frameless_products p2 WHERE p2.category = ".$wpdb->prefix."frameless_products.category ) as variants FROM " . $wpdb->prefix . "frameless_products WHERE category in ('Glass Shelf', 'Spatula', 'Silicone', 'Spade Porcelain Eater Drill Bit', 'Door Seal', 'Glass Shelf Bracket') GROUP BY category");
+		$data['extras'] = $wpdb->get_results("SELECT ".$wpdb->prefix."frameless_products.*, (SELECT GROUP_CONCAT(CONCAT(title,':',price, ':', LOWER(REPLACE(title, ' ', '-')), ':', code ) SEPARATOR ',') FROM ".$wpdb->prefix."frameless_products p2 WHERE p2.category = ".$wpdb->prefix."frameless_products.category ) as variants FROM " . $wpdb->prefix . "frameless_products WHERE category in ('Glass Shelf', 'SILICON SPATULA', 'Silicone Tube', 'Spade Porcelain Eater Drill Bit', 'Door Seal', 'Shelf Bracket / Floor Bracket', '3MM PACKERS') GROUP BY category");
 
 		echo json_encode( $data );
 
