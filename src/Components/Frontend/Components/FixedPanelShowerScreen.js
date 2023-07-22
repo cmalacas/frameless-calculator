@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Authservice from '../../Authservice';
 import { formatter } from '../../Function';
 
-import { Row, Col, Input, Button, ModalBody, Modal, FormGroup } from 'reactstrap';
+import { Row, Col, Input, Button, ModalBody, Modal, FormGroup, ModalFooter } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faCheckCircle, faWindowClose} from '@fortawesome/free-solid-svg-icons';
@@ -86,6 +86,13 @@ export default class FixedPanelShowerScreen extends Component {
       .then( response => {
 
         if ( response.success ) {
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Fixed Panel Shower Screen has been added to your cart',
+            showConfirmButton: false,
+            timer: 1500
+          });
 
           this.setState( { bracket: true } );
 
@@ -232,12 +239,12 @@ export default class FixedPanelShowerScreen extends Component {
               </FormGroup>
               
               {
-                this.state.price > 0 ?
+                true ?
 
                   <Fragment>
 
                     <Row>
-                      <Col md={5}>
+                      <Col md={4}>
 
                         <h3>Price: { formatter.format(this.state.price) }</h3>
                         <h5>Total: { formatter.format(this.state.total) }</h5>
@@ -245,7 +252,7 @@ export default class FixedPanelShowerScreen extends Component {
                       <Col md={3}>
                         <Input disabled={ valid == false } onChange={ this.change } type="number" step="1" value={ this.state.quantity } /> 
                       </Col>
-                      <Col>
+                      <Col md={4}>
                         <Button disabled={ valid == false } onClick={ this.addToCart } color="primary">Add To Cart</Button>
                       </Col>
                     </Row>
@@ -300,6 +307,9 @@ class Bracket extends Component {
       extras: false,
       _90_degree_image: '/wp-content/uploads/2021/09/Wall-bracket.jpg',
       _180_degree_image: '/wp-content/uploads/2021/09/180-degree-wall-bracket.png',
+
+      variant: '',
+      category: '',
 
       quantities: []
 
@@ -420,24 +430,21 @@ class Bracket extends Component {
           Swal.fire( {
     
             icon: 'success',
-            title: 'Item added to the cart',
+            title: `${x.category} added to the cart`,
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
             },
             hideClass: {
               popup: 'animate__animated animate__fadeOutUp'
             },
-            showCancelButton: true,
+            showCancelButton: false,
+            showConfirmButton: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Proceed to Checkout',
             cancelButtonText: 'Continue Shopping',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location = '/checkout'
-            }
-
-          })
+            timer: 1500
+          });
 
           const node = document.getElementById("modal-body");
 
@@ -465,7 +472,7 @@ class Bracket extends Component {
 
   }
 
-  addToCart() {
+  addToCart(item) {
 
     const valid = this.state._90_degree_bracket > 0 || this.state._180_degree_bracket;
 
@@ -487,14 +494,21 @@ class Bracket extends Component {
         .then( response => {
 
           if ( response.success )  {
-
-            this.setState( { extras: true } );
             
             const node = document.getElementById("modal-body");
 
             const popup = ReactDOM.findDOMNode( node );
 
             popup.scrollTo(0,0);
+
+            Swal.fire({
+              icon: 'success',
+              title: `${this.state.category}(${this.state.variant}) has been added to your cart`,
+              showConfirmButton: false,
+              timer: 1500
+            })
+
+            this.setState( { extras: true } );
 
           }
 
@@ -523,7 +537,11 @@ class Bracket extends Component {
 
     const _180_degree_bracket = bracket.id
 
-    this.setState( { _180_degree_price, selected, _180_degree_bracket  } );
+    const variant = bracket.title;
+
+    const category = bracket.category;
+
+    this.setState( { _180_degree_price, selected, _180_degree_bracket, variant, category  } );
 
   }
 
@@ -537,7 +555,11 @@ class Bracket extends Component {
 
     const selected = bracket.id
 
-    this.setState( { _90_degree_price, selected, _90_degree_bracket  } );
+    const variant = bracket.title;
+
+    const category = bracket.category;
+
+    this.setState( { _90_degree_price, selected, _90_degree_bracket, variant, category  } );
 
   }
 
@@ -564,17 +586,17 @@ class Bracket extends Component {
 
     return (
 
-      <Modal ref={ this.modalRef } isOpen={ this.props.open } toggle={ this.props.close } className="mw-100 w-50 mt-4">
+      <Modal ref={ this.modalRef } isOpen={ this.props.open } toggle={ this.props.close } className="mw-100 mt-4">
 
         <div className="modal-header text-center">
 
-            <div style={ { fontSize: '20px'} }>
+            {/* <div style={ { fontSize: '20px'} }>
 
               <FontAwesomeIcon className="text-success mr-4" icon={faCheckCircle} />
 
               "Fixed Panel Shower Screen" has been added to your cart
 
-            </div>
+    </div> */}
 
             <div className="ml-1">
 
@@ -620,7 +642,7 @@ class Bracket extends Component {
 
                   const variants = x.variants.split(',');
 
-                  if ( x.category == 'Spatula' ) {
+                  if ( x.category == 'SILICON SPATULA' ) {
 
                     img = '/wp-content/uploads/2021/09/SPATULA.jpg'
 
@@ -640,9 +662,17 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2021/09/SPADE_PORCELAIN_EATER.jpeg';
 
-                  } else if ( x.category == 'Glass Shelf Bracket' ) {
+                  } else if ( x.category == 'Shelf Bracket / Floor Bracket' ) {
 
                     img = '/wp-content/uploads/2021/09/SHELF-BRACKET.jpeg';
+
+                  } else if ( x.category == 'Silicone Tube' ) {
+
+                    img = '/wp-content/uploads/2023/06/Silicon-Clear_Silicon.png';
+
+                  } else if ( x.category == '3MM PACKERS' ) {
+
+                    img = '/wp-content/uploads/2023/06/3mm-PACKERS-SETTING-BLOCKS.jpg';
 
                   }
 
@@ -756,7 +786,7 @@ class Bracket extends Component {
               </Col>
 
               <Col className="desktop-hidden mb-4">
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
+                  <Button onClick={() => this.addToCart(this.state._90_degree_bracket) } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
               
                 <Col>
@@ -792,15 +822,15 @@ class Bracket extends Component {
                   </ul>                
                 </Col>
                 <Col className="desktop-hidden mb-4">
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
+                  <Button onClick={() => this.addToCart(this.state._180_degree_bracket) } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
               </Row>
               <Row className="mobile-hidden">
                 <Col>
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
+                  <Button onClick={() => this.addToCart() } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
                 <Col>
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
+                  <Button onClick={() => this.addToCart() } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
               </Row>
               {/* <Row>
@@ -815,6 +845,19 @@ class Bracket extends Component {
             </Fragment>
           }
         </div>
+
+        { this.state.extras ? 
+
+        <div className="modal-footer" style={{ justifyContent: 'end', padding: '15px'}}>
+
+          
+                <Button className="text-nowrap" onClick={ () => { location = '/checkout' } } color="dark">Proceed To Checkout</Button>
+
+          
+
+        </div>
+
+        : '' }
         
       </Modal>
 

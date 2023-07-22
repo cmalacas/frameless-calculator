@@ -345,7 +345,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '90 Degree Bracket'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '90 Degree Wall Bracket'");
 
 		echo json_encode( $data );
 
@@ -357,7 +357,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '180 Degree Bracket'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '180 Degree Wall Bracket'");
 
 		echo json_encode( $data );
 
@@ -393,7 +393,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Glass Shelf Bracket'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Shelf Bracket / Floor Bracket'");
 
 		echo json_encode( $data );
 
@@ -417,7 +417,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Half Round Water Bar'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Half-Round Waterbar'");
 
 		echo json_encode( $data );
 
@@ -429,7 +429,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Silicone'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Silicone Tube'");
 
 		echo json_encode( $data );
 
@@ -441,7 +441,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'Spatula'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = 'SILICON SPATULA'");
 
 		echo json_encode( $data );
 
@@ -453,7 +453,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '3mm Packers'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '3MM PACKERS'");
 
 		echo json_encode( $data );
 
@@ -477,7 +477,7 @@ class Frameless_Calculator_Admin {
 
 		global $wpdb;
 
-		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '180 Degree Wall To Glass Hinge'");
+		$data['panels'] = $wpdb->get_results("SELECT  * FROM " . $wpdb->prefix . "frameless_products WHERE category = '180 Degree Glass To Glass Hinge'");
 
 		echo json_encode( $data );
 
