@@ -481,7 +481,7 @@ class Bracket extends Component {
         data.append('_180_degree_price', this.state._180_degree_price);
         data.append('_180_degree_image', this.state._180_degree_image);
         data.append('_90_degree_image', this.state._90_degree_image);
-        data.append('quantity', parseInt( this.props.panelQuantity ) );
+        data.append('quantity', parseInt( this.props.panelQuantity ) * 2 );
 
         Authservice.addToCart( data )
         .then( response => {
