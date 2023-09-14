@@ -20,6 +20,12 @@
 
 .woocommerce {
 
+  button:not(:hover):not(:active):not(.has-background) {
+
+    background-color: #0f7986 !important;
+
+  }
+
   ul {
 
     &.products {
@@ -482,6 +488,7 @@
       .modal-dialog {
 
         transform: translate(0);
+        width: 100%;
   
       }
 

@@ -357,7 +357,6 @@ class Bracket extends Component {
       variant: '',
       category: '',
 
-      hinge: [],
       doorKnob: [],
       waterbar: [],
 
@@ -388,7 +387,10 @@ class Bracket extends Component {
       doorKnob_image: '/wp-content/uploads/2021/10/12.jpg',
       waterbar_image: '/wp-content/uploads/2021/09/waterbar.png',
 
-      quantities: []
+      quantities: [],
+
+      bracket_90_quantity: 2,
+      bracket_180_quantity: 2
 
     }
 
@@ -1172,12 +1174,24 @@ class Bracket extends Component {
                   })}
                 </ul>
 
+                <Row className="mb-4 mt-4">
+                  
+                  <Col md={4}>
+                    <Label>Quantity:</Label>
+                    <Input type="number" value={ this.state.bracket_90_quantity} />
+                  </Col>
+
+                  <Col className="desktop-hidden mb-4">
+                    <Button onClick={ this.addToCart } className="d-block w-100 text-white" color="secondary">Add To Cart</Button>
+                  </Col>
+
+
+                </Row>
+
                 
               </Col>
 
-              <Col className="desktop-hidden mb-4">
-                  <Button onClick={ this.addToCart } className="d-block w-100 text-white" color="secondary">Add To Cart</Button>
-                </Col>
+                
               
                 <Col>
 
