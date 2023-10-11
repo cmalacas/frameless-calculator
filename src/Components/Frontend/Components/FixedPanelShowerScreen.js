@@ -642,7 +642,7 @@ class Bracket extends Component {
 
                   const variants = x.variants.split(',');
 
-                  if ( x.category == 'SILICON SPATULA' ) {
+                  if ( x.category == 'SILICON SPATULA'  || x.category === 'Silicone Spatula') {
 
                     img = '/wp-content/uploads/2021/09/SPATULA.jpg'
 
@@ -662,7 +662,7 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2021/09/SPADE_PORCELAIN_EATER.jpeg';
 
-                  } else if ( x.category == 'Shelf Bracket / Floor Bracket' ) {
+                  } else if ( x.category == 'Shelf Bracket' ) {
 
                     img = '/wp-content/uploads/2021/09/SHELF-BRACKET.jpeg';
 

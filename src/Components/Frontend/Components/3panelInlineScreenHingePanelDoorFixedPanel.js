@@ -415,11 +415,19 @@ class Bracket extends Component {
       _180_degree_image: '/wp-content/uploads/2021/09/180-degree-wall-bracket.png',
 
       _180_degree_glass_wall_image: '/wp-content/uploads/2021/10/11.jpg',
+      _90_degree_glass_wall_image: '/wp-content/uploads/2023/10/Screen-Shot-2023-10-01-at-9.55.45-pm.png',
+
 
       doorKnob_image: '/wp-content/uploads/2021/10/12.jpg',
       waterbar_image: '/wp-content/uploads/2021/09/waterbar.png',
 
       quantities: [],
+
+      bracket_90_quantity: 4,
+      bracket_180_quantity: 4,
+      hinge_quantity: 2,
+      doorknob_quantity: 1,
+      waterbar_quantity: 1
 
     }
 
@@ -438,6 +446,17 @@ class Bracket extends Component {
     this.variantSelected = this.variantSelected.bind(this);
 
     this.setQuantity = this.setQuantity.bind(this);
+
+    this.setBracketQuantity = this.setBracketQuantity.bind(this);
+
+  }
+
+  setBracketQuantity( e ) {
+
+    const value = parseInt( e.target.value );
+
+    this.setState({ [e.target.name] : value });
+
   }
 
   setQuantity( e, item ) {
@@ -506,7 +525,7 @@ class Bracket extends Component {
       data.append('image', this.state.waterbar_image);
       data.append('code', this.state.waterBarCode);
       data.append('price', this.state.waterBarPrice);
-      data.append('quantity', 1);
+      data.append('quantity', this.state.waterbar_quantity);
 
       Authservice.addToCart( data )
         .then( response => {
@@ -567,7 +586,7 @@ class Bracket extends Component {
           data.append('image', this.state._180_degree_glass_wall_image);
           data.append('code', this.state.hingeCode);
           data.append('price', this.state.hingePrice);
-          data.append('quantity', 2);
+          data.append('quantity', this.state.hinge_quantity);
 
           Authservice.addToCart( data )
           .then( response => {
@@ -587,7 +606,7 @@ class Bracket extends Component {
                 _data.append('image', this.state.doorKnob_image);
                 _data.append('code', this.state.doorKnobCode);
                 _data.append('price', this.state.doorKnobPrice);
-                _data.append('quantity', 1);
+                _data.append('quantity', this.state.doorknob_quantity);
           
                 Authservice.addToCart( _data )
                 .then( response => {
@@ -771,7 +790,17 @@ class Bracket extends Component {
       data.append('_180_degree_price', this.state._180_degree_price);
       data.append('_180_degree_image', this.state._180_degree_image);
       data.append('_90_degree_image', this.state._90_degree_image);
-      data.append('quantity', parseInt( this.props.panelQuantity ) * 2 );
+
+      let quantity = this.state.bracket_90_quantity;
+
+      if (this.state._180_degree_bracket > 0) {
+
+        quantity = this.state.bracket_180_quantity;
+
+      } 
+
+
+      data.append('quantity', parseInt( this.props.panelQuantity ) * quantity );
 
       Authservice.addToCart( data )
       .then( response => {
@@ -892,6 +921,12 @@ class Bracket extends Component {
 
     let waterbar_price = waterbars.length > 0 ? waterbars[0].price : 0;
 
+    if (this.state.waterBarPrice > 0) {
+
+      waterbar_price = this.state.waterBarPrice;
+
+    }
+
     return (
 
       <Modal isOpen={ this.props.open } toggle={ this.props.close } className="mw-100  mt-4">
@@ -951,7 +986,7 @@ class Bracket extends Component {
 
                   const variants = x.variants.split(',');
 
-                  if ( x.category == 'SILICON SPATULA' ) {
+                  if ( x.category == 'SILICON SPATULA'  || x.category === 'Silicone Spatula') {
 
                     img = '/wp-content/uploads/2021/09/SPATULA.jpg'
 
@@ -971,7 +1006,7 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2021/09/SPADE_PORCELAIN_EATER.jpeg';
 
-                  } else if ( x.category == 'Shelf Bracket / Floor Bracket' ) {
+                  } else if ( x.category == 'Shelf Bracket' ) {
 
                     img = '/wp-content/uploads/2021/09/SHELF-BRACKET.jpeg';
  
@@ -979,7 +1014,7 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2023/06/Silicon-Clear_Silicon.png';
 
-                  } else if ( x.category == '3MM PACKERS' ) {
+                  } else if ( x.category == '3MM PACKERS'  || x.category === '3MM Packers' ) {
 
                     img = '/wp-content/uploads/2023/06/3mm-PACKERS-SETTING-BLOCKS.jpg';
 
@@ -1085,7 +1120,17 @@ class Bracket extends Component {
                     })}
                     </ul>
 
-                    <Button onClick={ () => this.addWaterBarToCart() } className="w-100 d-block" color="secondary">Add To Cart</Button>
+                    <Row>
+
+                        <Col>
+                          <Label>Qty:</Label>
+                          <Input type="number" className="mb-2" value={ this.state.waterbar_quantity } name="waterbar_quantity" onChange={ this.setBracketQuantity } /> 
+
+                          <Button onClick={ () => this.addWaterBarToCart() } className="w-100 d-block text-white" color="primary">Add To Cart</Button>
+
+                        </Col>
+                        
+                      </Row>
 
                     </Col>
 
@@ -1159,9 +1204,25 @@ class Bracket extends Component {
                  
 
                   <Row>
-                    <Col className="text-right"><Button onClick={ this.addHingeToCart } color="success">Add To Cart</Button></Col>
+                    <Col>
+                      <Label>Glass Qty:</Label>
+                      <Input type="number" className="mb-2" name="hinge_quantity" value={ this.state.hinge_quantity} onChange={ this.setBracketQuantity } />
+                      
+                    </Col>
+                    <Col>
+                      <Label>Door knob Qty:</Label>
+                      <Input type="number" className="mb-2" name="doorknob_quantity" value={ this.state.doorknob_quantity} onChange={ this.setBracketQuantity } />
+                      
+                    </Col>
                   </Row>
 
+                  <Row>
+                    <Col>
+                      <Button className="d-block w-100" onClick={ this.addHingeToCart } color="success">Add To Cart</Button>
+                    </Col>
+                  </Row>
+
+                  
                  
 
 
@@ -1203,6 +1264,9 @@ class Bracket extends Component {
               </Col>
 
                 <Col className="desktop-hidden mb-4">
+                  <Label>Qty:</Label>
+                  <Input type="number" className="mb-2" value={ this.state.bracket_90_quantity} onChange={ this.setBracketQuantity } name="bracket_90_quantity" />
+                      
                   <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
               
@@ -1230,6 +1294,9 @@ class Bracket extends Component {
                 </Col>
 
                 <Col className="desktop-hidden mb-4">
+                  <Label>Qty:</Label>
+                  <Input type="number" className="mb-2" value={ this.state.bracket_180_quantity} onChange={ this.setBracketQuantity } name="bracket_180_quantity" />
+                      
                   <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
                 </Col>
 
@@ -1239,12 +1306,27 @@ class Bracket extends Component {
 
               <Row className="mobile-hidden">
                 <Col>
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
-                </Col>
-                <Col>
-                  <Button onClick={ this.addToCart } className="d-block w-100" color="secondary">Add To Cart</Button>
+
+                  <Row>
+                    <Col>
+                      <Label>Qty:</Label>
+                      <Input type="number" className="mb-2" value={ this.state.bracket_90_quantity} onChange={ this.setBracketQuantity } name="bracket_90_quantity" />
+                      <Button onClick={ this.addToCart } className="d-block w-100 text-white" color="secondary">Add To Cart</Button>
+                    </Col>  
+                  </Row>
+
+                  </Col>
+                  <Col>
+                  <Row>
+                    <Col>
+                      <Label>Qty:</Label>
+                      <Input type="number" className="mb-2" value={ this.state.bracket_180_quantity} onChange={ this.setBracketQuantity } name="bracket_180_quantity" />
+                      <Button onClick={ this.addToCart } className="d-block w-100 text-white" color="secondary">Add To Cart</Button>
+                    </Col>  
+                  </Row>
                 </Col>
               </Row>
+
               {/* <Row>
                 <Col>
                   <Button onClick={ this.props.close } color="light">Continue Shopping</Button>
