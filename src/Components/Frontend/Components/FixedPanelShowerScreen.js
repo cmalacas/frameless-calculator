@@ -670,7 +670,7 @@ class Bracket extends Component {
 
                     img = '/wp-content/uploads/2023/06/Silicon-Clear_Silicon.png';
 
-                  } else if ( x.category == '3MM PACKERS' ) {
+                  } else if ( x.category == '3MM PACKERS'  || x.category === '3MM Packers') {
 
                     img = '/wp-content/uploads/2023/06/3mm-PACKERS-SETTING-BLOCKS.jpg';
 

@@ -237,7 +237,7 @@ class Frameless_Calculator_Public {
 
 			$title = $_POST['title'];
 
-			if ( $title == 'Spatula' ) {
+			if ( $title == 'Spatula' || $title == 'Silicone Spatula' ) {
 
 				$productID = 3332;
 
@@ -267,11 +267,24 @@ class Frameless_Calculator_Public {
 
 				$image = '/wp-content/uploads/2021/09/SPADE_PORCELAIN_EATER.jpeg';
 
-			} else if ( $title == 'Glass Shelf Bracket' ) {
+			} else if ( $title == 'Glass Shelf Bracket' || $title === 'Shelf Bracket' ) {
 
 				$productID = 3328;
 
 				$image = '/wp-content/uploads/2021/09/SHELF-BRACKET.jpeg';
+
+			}  else if ( $title == '3MM Packers' ) {
+
+				$productID = 24457;
+
+				$image = '/wp-content/uploads/2023/06/3mm-PACKERS-SETTING-BLOCKS.jpg';
+
+			} else if ( $title == 'Silicone Tube' ) {
+
+				$productID = 3326;
+
+				$image = '/wp-content/uploads/2023/06/Silicon-Clear_Silicon.png';
+
 
 			}
 
